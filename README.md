@@ -71,7 +71,7 @@ The palette is the original site's own: slate blue `#718093` (its `--Button_Colo
 buttons, links and highlights; charcoal `#1d262d` / `#0f1519` for reviews, quote form and footer surfaces; light
 greys for content sections; yellow `#ffe234` only for the review stars, exactly as on the original.
 
-Dark mode is class-based via `next-themes` (system default, toggle in the navbar). Themed tokens (`bg`, `surface`,
+Dark mode is class-based via `next-themes` (light by default; the navbar toggle switches it and the choice is remembered per browser). Themed tokens (`bg`, `surface`,
 `ink`, `muted`, `line`, `accent-deep`, `accent-soft`) are re-pointed under `.dark` in `app/globals.css`; the
 fixed-dark sections use `bg-dark` and never change. Rule of thumb in components: `bg-ink text-surface` for small
 chips and buttons (they flip), `bg-dark text-white` for sections that stay dark, `text-dark` for text on an
