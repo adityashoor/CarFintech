@@ -131,11 +131,11 @@ export function Hero() {
         <div className="pointer-events-none absolute -right-40 top-0 h-[640px] w-[640px] rounded-full bg-accent/10 blur-[120px]" aria-hidden />
 
         <div className={expand ? "container-x relative grid h-full grid-cols-12 items-center gap-10 pt-24" : "container-x grid grid-cols-1 items-center gap-12 pb-16 pt-32 md:pt-40 lg:grid-cols-12 lg:gap-10 lg:pb-24"}>
-          <motion.div style={expand ? { opacity: copyOpacity, y: copyY } : undefined} className="col-span-12 lg:col-span-6">
+          <motion.div style={expand ? { opacity: copyOpacity, y: copyY } : undefined} className="col-span-full lg:col-span-6">
             {copy}
           </motion.div>
           {/* The frame reserves the photograph's opening position; on large screens the animated box takes over. */}
-          <div className="col-span-12 lg:col-span-6">
+          <div className="col-span-full lg:col-span-6">
             <motion.div
               ref={frame}
               initial={{ opacity: 0, y: 24 }}

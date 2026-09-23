@@ -244,10 +244,10 @@ function ProfileHero({ member }: { member: TeamMember }) {
             </motion.div>
             {/* Floating proof */}
             <motion.div
-              initial={{ opacity: 0, x: 24 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, ease: EASE_OUT_EXPO, delay: 0.9 }}
-              className="absolute -left-4 top-8 w-[220px] rounded-xl border border-line bg-surface p-4 shadow-card sm:-left-10"
+              className="mt-4 w-full rounded-xl border border-line bg-surface p-4 shadow-card lg:absolute lg:-left-10 lg:top-8 lg:mt-0 lg:w-[220px]"
             >
               <div className="flex items-center gap-2">
                 <Stars size={12} />
@@ -259,7 +259,7 @@ function ProfileHero({ member }: { member: TeamMember }) {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, ease: EASE_OUT_EXPO, delay: 1.05 }}
-              className={cn("absolute -bottom-6 right-0 w-[240px] rounded-xl border border-line bg-surface p-4 shadow-card sm:-right-6")}
+              className={cn("mt-3 w-full rounded-xl border border-line bg-surface p-4 shadow-card lg:absolute lg:-bottom-6 lg:-right-6 lg:mt-0 lg:w-[240px]")}
             >
               <p className="eyebrow text-muted">Direct line</p>
               {member.phone && (
