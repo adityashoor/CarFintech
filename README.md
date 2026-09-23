@@ -110,7 +110,7 @@ copying impractical and unattractive instead. Set these on the demo deployment o
 | --- | --- |
 | `DEMO_ACCESS_CODE` | Every page is gated by `proxy.ts`. Share `https://demo-url/?access=CODE` once; a signed, httpOnly cookie admits the visitor for `DEMO_COOKIE_DAYS` (default 7). Wrong or missing code shows `/demo-access`. |
 | `DEMO_EXPIRES` | ISO date after which every page shows `/demo-expired`. The link stops working on the day you choose. |
-| `NEXT_PUBLIC_DEMO=1` | Repeating ownership watermark over every page (survives screenshots and recordings), copyright meta tag, footer notice, `noindex, noarchive` and `no-store` headers. |
+| `NEXT_PUBLIC_DEMO=1` | Copyright meta tag, footer ownership notice, `noindex, noarchive` and `no-store` headers. |
 
 Always on: `X-Frame-Options: DENY` and `frame-ancestors 'none'` (the site cannot be embedded in another domain),
 no `X-Powered-By`, and the `LICENSE` file states that the design and code are proprietary and provided for

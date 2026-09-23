@@ -12,7 +12,6 @@ import { ScrollToTop } from "@/components/navigation/ScrollToTop";
 import { ScrollProgress } from "@/components/navigation/ScrollProgress";
 import { Footer } from "@/components/footer/Footer";
 import { SiteJsonLd } from "@/components/seo/JsonLd";
-import { DemoWatermark } from "@/components/demo/DemoWatermark";
 
 const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta", display: "swap" });
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
@@ -33,7 +32,6 @@ export const viewport: Viewport = { themeColor: [{ media: "(prefers-color-scheme
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   const ga = process.env.NEXT_PUBLIC_GA_ID;
-  const demo = process.env.NEXT_PUBLIC_DEMO === "1";
   return (
     <html lang="en-AU" suppressHydrationWarning className={`${jakarta.variable} ${inter.variable} ${spaceGrotesk.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-bg text-ink">
@@ -51,7 +49,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Footer />
           <MobileCta />
           <ScrollToTop />
-          {demo && <DemoWatermark owner={process.env.NEXT_PUBLIC_DEMO_OWNER || "Aditya Shoor"} />}
         </MotionProvider>
         </ThemeProvider>
         <SiteJsonLd />
