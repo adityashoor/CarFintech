@@ -1,0 +1,478 @@
+@import "tailwindcss";
+
+/* Class-based dark mode driven by next-themes (`.dark` on <html>). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------------------------------------------------------------------------
+   Design tokens. Tailwind v4 turns these into utilities:
+   bg-ink, text-slate, bg-accent, font-heading, ease-out-expo, text-display …
+
+   Palette is derived from the Car Fintech logo (charcoal squares + slate) and
+   the brand yellow used on the original site.
+--------------------------------------------------------------------------- */
+@theme {
+  --color-ink: #0f1519;
+  --color-ink-2: #1d262d;
+  --color-ink-3: #2b3640;
+  --color-ink-4: #3a4753;
+  --color-slate: #718093;
+  --color-slate-2: #a7b1bd;
+  --color-slate-3: #d3d9e0;
+  /* Brand blue: the original site's --Button_Colour (#718093), also the logo's slate squares. */
+  --color-accent: #718093;
+  --color-accent-deep: #5f6e81;
+  /* Lighter tint for text and icons on dark surfaces (contrast). */
+  --color-accent-bright: #9fb0c4;
+  --color-accent-soft: #e9eef4;
+  /* Review stars stay yellow, as on the original site. */
+  --color-star: #ffe234;
+  /* Fixed dark surfaces: reviews, quote form, footer look the same in both modes. */
+  --color-dark: #0f1519;
+  --color-dark-2: #1d262d;
+  --color-dark-3: #2b3640;
+
+  /* Theme-dependent (re-pointed under .dark below). */
+  --color-bg: #f5f6f8;
+  --color-surface: #ffffff;
+  --color-line: #e4e7ec;
+  --color-muted: #5b6673;
+  --color-success: #16a34a;
+  --color-danger: #dc2626;
+
+  --font-heading: var(--font-jakarta), "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-numeric: var(--font-space-grotesk), "Space Grotesk", ui-monospace, monospace;
+
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+
+  /* Restrained editorial scale: confident, not shouty. */
+  --text-display-xl: clamp(2.75rem, 5.6vw, 5.25rem);
+  --text-display-xl--line-height: 1.02;
+  --text-display-xl--letter-spacing: -0.03em;
+  --text-display: clamp(2.25rem, 4.4vw, 3.9rem);
+  --text-display--line-height: 1.06;
+  --text-display--letter-spacing: -0.025em;
+  --text-display-sm: clamp(1.85rem, 3.1vw, 2.75rem);
+  --text-display-sm--line-height: 1.12;
+  --text-display-sm--letter-spacing: -0.02em;
+  --text-title: clamp(1.4rem, 2.1vw, 1.9rem);
+  --text-title--line-height: 1.2;
+  --text-title--letter-spacing: -0.015em;
+
+  --spacing-section: clamp(4.5rem, 9vw, 8.5rem);
+
+  --shadow-card: 0 1px 2px rgb(15 21 25 / 0.04), 0 12px 40px -16px rgb(15 21 25 / 0.18);
+  --shadow-glow: 0 0 0 1px rgb(113 128 147 / 0.45), 0 20px 60px -20px rgb(113 128 147 / 0.5);
+
+  --animate-marquee: marquee 60s linear infinite;
+  --animate-marquee-vertical: marquee-vertical 40s linear infinite;
+  --animate-shimmer: shimmer 2.6s linear infinite;
+  --animate-beam: beam 6s linear infinite;
+  --animate-gradient: gradient 6s ease infinite;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-pulse-ring: pulse-ring 2.6s ease-out infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% - var(--gap, 1.5rem) / 2));
+  }
+}
+@keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(-50% - var(--gap, 1.5rem) / 2));
+  }
+}
+@keyframes shimmer {
+  from {
+    transform: translateX(-150%) skewX(-18deg);
+  }
+  to {
+    transform: translateX(250%) skewX(-18deg);
+  }
+}
+@property --beam-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+@keyframes beam {
+  to {
+    --beam-angle: 360deg;
+  }
+}
+@keyframes gradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -14px, 0);
+  }
+}
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+  .dark {
+    color-scheme: dark;
+    --color-bg: #0b1014;
+    --color-surface: #151c22;
+    --color-ink: #f2f4f7;
+    --color-ink-2: #e3e7ec;
+    --color-ink-3: #c9d0d8;
+    --color-ink-4: #aeb7c1;
+    --color-muted: #9aa5b1;
+    --color-slate-3: #2b3640;
+    --color-line: rgb(255 255 255 / 0.1);
+    --color-accent-deep: #9fb0c4;
+    --color-accent-soft: #22303d;
+    --shadow-card: 0 1px 2px rgb(0 0 0 / 0.4), 0 12px 40px -16px rgb(0 0 0 / 0.6);
+  }
+  body {
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--color-accent);
+    color: #fff;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading);
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  input,
+  select,
+  textarea,
+  button {
+    font: inherit;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+  /* Range inputs (calculator) */
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 9999px;
+    background: linear-gradient(to right, var(--color-accent) 0 var(--pct, 50%), var(--color-slate-3) var(--pct, 50%) 100%);
+    outline: none;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 9999px;
+    background: var(--color-ink);
+    border: 3px solid #fff;
+    box-shadow: 0 2px 8px rgb(15 21 25 / 0.35);
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.12);
+  }
+  input[type="range"]::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    border-radius: 9999px;
+    background: var(--color-ink);
+    border: 3px solid #fff;
+    cursor: pointer;
+  }
+  .dark-range input[type="range"]::-webkit-slider-thumb {
+    background: var(--color-accent);
+    border-color: var(--color-ink);
+  }
+}
+
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Utilities
+--------------------------------------------------------------------------- */
+@utility container-x {
+  width: 100%;
+  max-width: 88rem;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 3.5rem);
+}
+
+@utility eyebrow {
+  font-family: var(--font-numeric);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@utility section-y {
+  padding-block: var(--spacing-section);
+}
+
+@utility skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  border-radius: 9999px;
+  background: var(--color-accent);
+  color: var(--color-ink);
+  font-weight: 600;
+  transform: translateY(-200%);
+  transition: transform 0.2s;
+  &:focus {
+    transform: translateY(0);
+  }
+}
+
+/* Glass surfaces (navbar, floating cards) */
+@utility glass {
+  background: rgb(from var(--color-surface) r g b / 0.85);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid var(--color-line);
+}
+@utility glass-dark {
+  background: rgb(15 21 25 / 0.55);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgb(255 255 255 / 0.1);
+}
+
+/* Subtle engineering grid used behind dark sections */
+@utility grid-bg {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+@utility grid-bg-light {
+  background-image:
+    linear-gradient(to right, rgb(from var(--color-ink) r g b / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(from var(--color-ink) r g b / 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+@utility dots-bg {
+  background-image: radial-gradient(rgb(from var(--color-ink) r g b / 0.12) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Radial mask that fades a background pattern out towards the edges */
+@utility mask-radial {
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 100%);
+}
+@utility mask-fade-x {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+@utility mask-fade-y {
+  mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
+}
+
+/* Spotlight card: radial highlight following the pointer (--mx/--my from JS) */
+@utility spotlight {
+  position: relative;
+  overflow: hidden;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s;
+    background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), rgb(159 176 196 / 0.22), transparent 60%);
+  }
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+/* Glow border card (21st.dev "glowing effect"): a conic highlight on the
+   border that follows the pointer. */
+@utility glow-border {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    pointer-events: none;
+    padding: 1px;
+    background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), rgb(159 176 196 / 0.95), rgb(113 128 147 / 0.2) 45%, transparent 70%);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.35s;
+  }
+  &:hover::after {
+    opacity: 1;
+  }
+}
+
+/* Rotating conic border beam (21st.dev "border beam") */
+@utility border-beam {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: conic-gradient(
+      from var(--beam-angle),
+      transparent 0deg,
+      transparent 300deg,
+      rgb(159 176 196 / 0.25) 330deg,
+      var(--color-accent-bright) 350deg,
+      #fff 360deg
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: beam 6s linear infinite;
+    pointer-events: none;
+  }
+}
+
+/* Shimmer sweep on primary buttons */
+@utility shimmer {
+  position: relative;
+  overflow: hidden;
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 40%;
+    background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.55), transparent);
+    transform: translateX(-150%) skewX(-18deg);
+    animation: shimmer 2.6s linear infinite;
+    pointer-events: none;
+  }
+}
+
+/* Animated gradient text */
+@utility text-gradient-accent {
+  background: linear-gradient(90deg, #fff 0%, var(--color-accent-bright) 40%, #fff 60%, var(--color-accent-bright) 100%);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient 6s ease infinite;
+}
+
+@utility prose-brand {
+  & p {
+    margin-block: 1.1em;
+    line-height: 1.75;
+    color: var(--color-ink-3);
+  }
+  & h2,
+  & h3,
+  & h4 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    margin-top: 2.2em;
+    margin-bottom: 0.7em;
+  }
+  & h2 {
+    font-size: 1.6rem;
+  }
+  & h3 {
+    font-size: 1.3rem;
+  }
+  & h4 {
+    font-size: 1.1rem;
+  }
+  & ul {
+    margin-block: 1.1em;
+    padding-left: 1.4em;
+    list-style: disc;
+  }
+  & li {
+    margin-block: 0.4em;
+    line-height: 1.7;
+    color: var(--color-ink-3);
+  }
+  & a {
+    color: var(--color-ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
